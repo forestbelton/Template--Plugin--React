@@ -6,6 +6,9 @@ WriteMakefile(
     INC          => `js-config --cflags`,
     LIBS         => `js-config --libs`,
     OBJECT       => 'RESimple.o RESimple_wrap.o',
+    macro        => {
+        BASEEXT => 'RESimple'
+    },
     clean        => {
         FILES => ['RESimple.pm', 'RESimple_wrap.cxx']
     }
