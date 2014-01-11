@@ -2,11 +2,12 @@
 use strict;
 use warnings;
 package Template::Plugin::React;
+$VERSION = '0.002';
 
 use base qw(Template::Plugin);
 use Template::Plugin;
 
-use JSPL;
+use RESimple;
 use JSON;
 
 sub from_file {
@@ -32,10 +33,12 @@ sub load {
     my ($class, $context) = @_;
     my $constants = $context->config->{CONSTANTS};
 
+    my $ctx       = new RESimple::RESimple;
     my $prelude   = from_file $constants->{react_js};
     my $templates = $constants->{react_templates};
 
     bless {
+        ctx       => $ctx,
         prelude   => $prelude,
         templates => $templates
     }, $class;
@@ -46,10 +49,10 @@ sub render {
     my $json = to_json($data // {});
 
     my $built = from_file $self->{templates};
-    my $res = JSPL->stock_context->eval(qq|
+    return $self->{ctx}->exec(qq|
 var console = {
     warn:  function(){},
-    error: say
+    error: function(){}
 };
 
 var global = {};
