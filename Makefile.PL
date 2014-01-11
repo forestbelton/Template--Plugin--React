@@ -2,7 +2,7 @@ use ExtUtils::MakeMaker;
 
 WriteMakefile(
     NAME         => 'Template::Plugin::React',
-    VERSION_FROM => 'lib/Template/Plugin/React.pm',
+    VERSION      => '0.002',
     INC          => `js-config --cflags`,
     LIBS         => `js-config --libs`,
     OBJECT       => 'RESimple.o RESimple_wrap.o',
