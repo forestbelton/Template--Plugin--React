@@ -6,11 +6,11 @@ components. The current version is `0.002`.
 
 Requirements
 ------------
-Mozilla's [SpiderMonkey](www.mozilla.org/js/spidermonkey/) engine must
-be installed. SpiderMonkey 24 was used to build this module; if you use
-a different version, your mileage may vary. The `Makefile.PL` script
-uses `js-config` to learn about the compilation flags to use, so make
-sure that is in your `PATH`.
+Mozilla's [SpiderMonkey](http://www.mozilla.org/js/spidermonkey/) and
+[SWIG](http://www.swig.org) must be installed. SpiderMonkey 24 was used
+to build this module; if you use a different version, your mileage may
+vary. The `Makefile.PL` script uses `js-config` to learn about the
+compilation flags to use, so make sure that is in your `PATH`.
 
 Usage
 -----
