@@ -1,0 +1,22 @@
+use ExtUtils::MakeMaker;
+
+WriteMakefile(
+    NAME         => 'Template::Plugin::React::RESimple',
+    VERSION      => '0.002',
+    INC          => `js-config --cflags`,
+    LIBS         => `js-config --libs`,
+    OBJECT       => 'RESimple.o RESimple_wrap.o',
+    PM           => {
+        'RESimple.pm' => '$(INST_LIBDIR)/RESimple.pm'
+    },
+    clean        => {
+        FILES => ['RESimple.pm', 'RESimple_wrap.cxx']
+    }
+);
+
+sub MY::postamble {
+    <<EOF;
+RESimple_wrap.cxx RESimple.pm: RESimple.i
+	swig -c++ -perl -shadow \$<
+EOF
+}

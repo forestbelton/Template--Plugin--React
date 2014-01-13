@@ -6,7 +6,7 @@ package Template::Plugin::React;
 use base qw(Template::Plugin);
 use Template::Plugin;
 
-use RESimple;
+use Template::Plugin::React::RESimple;
 use JSON;
 
 sub from_file {
@@ -32,7 +32,7 @@ sub load {
     my ($class, $context) = @_;
     my $constants = $context->config->{CONSTANTS};
 
-    my $ctx       = new RESimple::RESimple;
+    my $ctx       = new Template::Plugin::React::RESimple::RESimple;
     my $prelude   = from_file $constants->{react_js};
     my $templates = $constants->{react_templates};
 
