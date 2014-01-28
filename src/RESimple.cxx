@@ -16,12 +16,9 @@ static JSClass global_class = { "global",
                                 JSCLASS_NO_OPTIONAL_MEMBERS
 };
 
-/* The error reporter callback. */
-static void reportError(JSContext *cx, const char *message, JSErrorReport *report) {
-  fprintf(stderr, "%s:%u:%s\n",
-          report->filename ? report->filename : "[no filename]",
-          (unsigned int) report->lineno,
-          message);
+static std::string data;
+static void reporter(JSContext *cx, const char *msg, JSErrorReport *r) {
+  data = std::string(msg);
 }
 
 static JSObject *buildGlobalObject(JSContext *cx) {
@@ -55,19 +52,19 @@ RESimple::RESimple() {
     throw std::runtime_error("JS_NewContext failed");
 
   JS_SetOptions(cx, JSOPTION_VAROBJFIX);
-  JS_SetErrorReporter(cx, reportError);
+  JS_SetErrorReporter(cx, reporter);
 
   this->global = buildGlobalObject(this->cx);
   if(this->global == NULL)
     throw std::runtime_error("JS_NewCompartmentAndGlobalObject failed");
 }
 
-char *RESimple::exec(const char *data) {
+int RESimple::exec(const char *code) {
   jsval  rval;
   JSBool ok;
   char   *s = NULL;
 
-  ok = JS_EvaluateScript(this->cx, this->global, data, strlen(data),
+  ok = JS_EvaluateScript(this->cx, this->global, code, strlen(code),
                          "inline", 0, &rval);
 
   if(ok) {
@@ -75,10 +72,15 @@ char *RESimple::exec(const char *data) {
 
     if(jss) {
       s = JS_EncodeString(this->cx, jss);
+      data = std::string(s);
     }
   }
 
-  return s;
+  return ok;
+}
+
+const char *RESimple::output() {
+  return data.c_str();
 }
 
 RESimple::~RESimple() {

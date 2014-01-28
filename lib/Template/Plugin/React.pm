@@ -48,7 +48,7 @@ sub render {
     my $json = to_json($data // {});
 
     my $built = from_file $self->{templates};
-    return $self->{ctx}->exec(qq|
+    my $res = $self->{ctx}->exec(qq|
 var console = {
     warn:  function(){},
     error: function(){}
@@ -65,6 +65,12 @@ React.renderComponentToString($name($json), function(s) {
 });
 result;
     |);
+
+    if($res) {
+        return $self->{ctx}->output();
+    } else {
+        die $self->{ctx}->output();
+    }
 }
 
 1;

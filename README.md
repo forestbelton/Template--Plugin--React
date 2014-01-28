@@ -17,7 +17,8 @@ Usage
 This plugin only exposes a single function: `React.render(component, data)`.
 `component` must be a string representing the component name, and `data`,
 if passed, must be a hash ref representing the data to provide to the
-component during rendering.
+component during rendering. JavaScript exceptions are propagated up and
+sent to an invocation of `die`.
 
 ```
 [% USE React %]
