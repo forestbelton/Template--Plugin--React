@@ -8,7 +8,7 @@ This is a Template Toolkit plugin to render L<React|http://facebook.github.io/re
 
 =head1 REQUIREMENTS
 
-Mozilla's L<SpiderMonkey|http://www.mozilla.org/js/spidermonkey/> and L<SWIG|http://www.swig.org>[SWIG] must be installed. SpiderMonkey 24 was used to build this module; if you use a different version, your mileage may vary. The C<Makefile.PL> script uses C<js-config> to learn about the compilation flags to use, so make sure that is in your C<PATH>.
+Mozilla's L<SpiderMonkey|http://www.mozilla.org/js/spidermonkey/> and L<SWIG|http://www.swig.org> must be installed. SpiderMonkey 24 was used to build this module; if you use a different version, your mileage may vary. The C<Makefile.PL> script uses C<js-config> to learn about the compilation flags to use, so make sure that is in your C<PATH>.
 
 =head1 USAGE
 
