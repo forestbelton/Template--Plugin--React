@@ -1,5 +1,14 @@
 use ExtUtils::MakeMaker;
 
+sub error {
+    my ($msg) = @_;
+    print STDERR "ERROR: $msg\n";
+    exit 0;
+}
+
+error "SWIG needs to be installed" unless `which swig`;
+error "SpiderMonkey needs to be installed" unless `which js-config`;
+
 WriteMakefile(
     NAME         => 'Template::Plugin::React::RESimple',
     VERSION      => '0.002',
