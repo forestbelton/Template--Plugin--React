@@ -3,6 +3,8 @@ use strict;
 use warnings;
 package Template::Plugin::React;
 
+our $VERSION = '0.003';
+
 use base qw(Template::Plugin);
 use Template::Plugin;
 
