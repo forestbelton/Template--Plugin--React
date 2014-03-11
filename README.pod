@@ -4,7 +4,7 @@ Template::Plugin::React - Plugin for Facebook React
 
 =head1 DESCRIPTION
 
-This is a Template Toolkit plugin to render L<React|http://facebook.github.io/react/> components. The current version is C<0.002>.
+This is a Template Toolkit plugin to render L<React|http://facebook.github.io/react/> components. The current version is C<0.004>. You must use React version C<0.9.0> with this plugin.
 
 =head1 REQUIREMENTS
 
