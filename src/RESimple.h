@@ -6,7 +6,7 @@
 
 class RESimple {
  public:
-  RESimple();
+  RESimple(unsigned int);
   ~RESimple();
   int exec(const char *name);
   const char *output();

@@ -40,9 +40,9 @@ static JSObject *buildGlobalObject(JSContext *cx) {
   return global;
 }
 
-RESimple::RESimple() {
+RESimple::RESimple(unsigned int mbytes) {
   /* Create a JS runtime. */
-  this->rt = JS_NewRuntime(8L * 1024L * 1024L);
+  this->rt = JS_NewRuntime(mbytes * 1024L * 1024L);
   if(this->rt == NULL)
     throw std::runtime_error("JS_NewRuntime failed");
 

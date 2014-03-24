@@ -3,7 +3,7 @@ use strict;
 use warnings;
 package Template::Plugin::React;
 
-our $VERSION = '0.006';
+our $VERSION = '0.007';
 
 use base qw(Template::Plugin);
 use Template::Plugin;
@@ -33,8 +33,9 @@ sub new {
 sub load {
     my ($class, $context) = @_;
     my $constants = $context->config->{CONSTANTS};
+    my $size      = $constants->{stacksize} || 32;
 
-    my $ctx       = new Template::Plugin::React::RESimple::RESimple;
+    my $ctx       = new Template::Plugin::React::RESimple::RESimple($size);
     my $prelude   = from_file $constants->{react_js};
     my $templates = $constants->{react_templates};
 
