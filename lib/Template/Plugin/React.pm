@@ -3,7 +3,7 @@ use strict;
 use warnings;
 package Template::Plugin::React;
 
-our $VERSION = '0.004';
+our $VERSION = '0.006';
 
 use base qw(Template::Plugin);
 use Template::Plugin;
@@ -51,6 +51,8 @@ sub render {
 
     my $built = from_file $self->{templates};
     my $res = $self->{ctx}->exec(qq|
+(function() {
+
 var console = {
     warn:  function(){},
     error: function(){}
@@ -61,8 +63,9 @@ $self->{prelude};
 var React = global.React;
 
 $built;
-var result;
-React.renderComponentToString($name($json));
+return React.renderComponentToString($name($json));
+
+})();
     |);
 
     if($res) {
