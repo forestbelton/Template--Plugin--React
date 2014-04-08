@@ -11,7 +11,7 @@ error "SpiderMonkey needs to be installed" unless `which js-config`;
 
 WriteMakefile(
     NAME         => 'Template::Plugin::React::RESimple',
-    VERSION      => '0.007',
+    VERSION      => '0.008',
     CCFLAGS      => `js-config --cflags`,
     LIBS         => `js-config --libs`,
     OBJECT       => 'RESimple.o RESimple_wrap.o',
