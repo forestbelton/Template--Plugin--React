@@ -3,19 +3,20 @@ use strict;
 use warnings;
 package Template::Plugin::React;
 
-our $VERSION = '0.007';
+our $VERSION = '0.008';
 
 use base qw(Template::Plugin);
 use Template::Plugin;
 
 use Template::Plugin::React::RESimple;
 use JSON;
+use Encode;
 
 sub from_file {
     my ($fname) = @_;
 
     my $out = '';
-    open my $fh, '<', $fname or die $!;
+    open my $fh, '<:encoding(UTF-8)', $fname or die $!;
     {
         local $/;
         $out = <$fh>;
@@ -48,9 +49,10 @@ sub load {
 
 sub render {
     my ($self, $name, $data) = @_;
-    my $json = to_json($data // {});
 
+    my $json = to_json($data // {}, {utf8 => 1});
     my $built = from_file $self->{templates};
+
     my $res = $self->{ctx}->exec(qq|
 (function() {
 
@@ -70,7 +72,7 @@ return React.renderComponentToString($name($json));
     |);
 
     if($res) {
-        return $self->{ctx}->output();
+        return Encode::decode("utf8", $self->{ctx}->output());
     } else {
         die $self->{ctx}->output();
     }
